@@ -1,10 +1,14 @@
 import { Animated, Dimensions, StyleSheet } from "react-native";
 import React from "react";
 import { Button, Image, Text, View } from "react-native-ui-lib";
+import { NavigationProp, useNavigation } from "@react-navigation/core";
+import { RootStackParamList } from "../../../nav/RootStack/RootStack";
+import { AuthStackParamList } from "../../../nav/Authentiacion/AuthenTication";
 
 const { width, height } = Dimensions.get("window");
 
 const Onboarding = () => {
+  const {navigate} = useNavigation<NavigationProp<AuthStackParamList>>()
   const scrollY = React.useRef(new Animated.Value(0)).current;
   const rocketAnimation = React.useRef(new Animated.Value(height)).current;
   const cloudAnimation = React.useRef(new Animated.Value(0)).current;
@@ -125,8 +129,8 @@ const Onboarding = () => {
             height: 150,
             // aspectRatio:16/9,
             marginBottom: 20,
-            backgroundColor:'red',
-            alignItems:'center'
+            
+            alignItems: "center",
           }}
           resizeMode="contain"
         />
@@ -139,7 +143,7 @@ const Onboarding = () => {
           borderTopLeftRadius: 75,
           borderTopRightRadius: 75,
           backgroundColor: "#fff",
-          height: height ,
+          height: height,
           padding: 50,
         }}
       >
@@ -175,29 +179,43 @@ const Onboarding = () => {
                 their first year, 100% for second, and 71% for third.
               </Text>
             </View>
+            {!!show && (
+              <Animated.View
+                style={{
+                  transform: [{ translateY: ModalAnimation }],
+                  marginHorizontal: 5,
+                  marginVertical: 10,
+                }}
+              >
+                <Button
+                  label={"Press"}
+                  backgroundColor="rgba(254,251,0,1)"
+                  borderRadius={60}
+                  style={styles.buttonStyle}
+                  labelStyle={styles.labelStyle}
+                  onPress={() => navigate('SignIn')}
+                />
+              </Animated.View>
+            )}
           </Animated.View>
         )}
       </Animated.View>
-      {!!show && (
-        <Animated.View
-          style={{
-            marginHorizontal:20,
-            transform: [{ translateY: ModalAnimation }],
-          }}
-        >
-          <Button
-            label={"Press"}
-            size={Button.sizes.large}
-            backgroundColor="rgba(254,251,0,1)"
-            borderRadius={3}
-            labelStyle={{fontWeight: '500',color:'#000'}}
-          />
-        </Animated.View>
-      )}
     </View>
   );
 };
 
 export default Onboarding;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  buttonStyle: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2,
+  },
+  labelStyle: { fontWeight: "bold", color: "#000",fontSize:20 },
+});

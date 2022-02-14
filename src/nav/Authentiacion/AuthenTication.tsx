@@ -2,9 +2,10 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import SignIn from "../../screens/AutScreen/SignIn";
-import SignUp from "../../screens/AutScreen/SignUp";
-import Onboarding from "../../screens/AutScreen/Onboarding";
+
+import Onboarding from "../../screens/AuthScreen/Onboarding";
+import SignIn from "../../screens/AuthScreen/SignIn"
+import SignUp from "../../screens/AuthScreen/SignIn"
 
 export type AuthStackParamList = {
   Onboarding: undefined;
